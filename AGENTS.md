@@ -47,6 +47,15 @@ php artisan migrate:fresh --seed             # reset DB + data demo
   Alpine.js & Chart.js via **CDN**. Font di-fetch plugin `bunny` di `vite.config.js` (butuh internet saat build).
 - Struk cetak: HTML + CSS `@media print` (58mm/80mm) + `window.print()` — tanpa package PDF.
 
+## Gotcha nulis test (Laravel 13 + phpunit.xml)
+
+- `assertSee()` **meng-escape default** — untuk cek atribut HTML (`name="x"`) atau teks dengan
+  tanda kutip, pakai `assertSee('name="x"', false)`.
+- **Session driver `array` tidak persist antar `$this->get()` terpisah dalam satu test** —
+  flash data (errors, old input) hilang. Untuk test "error validasi tampil di halaman":
+  `$this->from('/login')->followingRedirects()->post(...)->assertSee(...)`.
+- Komentar Blade harus `{{--` murni — satu karakter nyasar di dalamnya merusak kompilasi jadi echo.
+
 ## Konvensi kode
 
 - Service layer di `app/Services/` (`StockService`, `SaleService`) — logika bisnis keluar dari controller; controller tipis.

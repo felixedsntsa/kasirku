@@ -36,7 +36,7 @@
 
         <label class="flex items-center gap-2 text-sm text-slate-600">
             <input type="checkbox" name="remember" value="1"
-                   class="size-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500" />
+                   class="size-4 rounded border-slate-300 text-accent-600 focus:ring-accent-600" />
             Ingat saya
         </label>
 
@@ -45,6 +45,6 @@
 
     <p class="mt-8 text-center text-sm text-slate-500">
         Belum punya akun?
-        <a href="{{ route('register') }}" class="font-semibold text-brand-600 hover:underline">Daftar sekarang</a>
+        <a href="{{ route('register') }}" class="font-semibold text-accent-600 hover:underline">Daftar sekarang</a>
     </p>
 @endsection

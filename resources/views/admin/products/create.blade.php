@@ -36,7 +36,7 @@
                 </div>
 
                 <div>
-                    <label for="supplier_id" class="label">Supplier <span class="font-normal text-slate-400">(opsional)</span></label>
+                    <label for="supplier_id" class="label">Supplier <span class="font-normal text-ink-500">(opsional)</span></label>
                     <select id="supplier_id" name="supplier_id"
                             class="input @error('supplier_id') input-error @enderror">
                         <option value="">— Tanpa supplier —</option>
@@ -48,7 +48,7 @@
                 </div>
 
                 <div>
-                    <label for="barcode" class="label">Barcode <span class="font-normal text-slate-400">(opsional)</span></label>
+                    <label for="barcode" class="label">Barcode <span class="font-normal text-ink-500">(opsional)</span></label>
                     <input id="barcode" type="text" name="barcode" value="{{ old('barcode') }}"
                            class="input font-mono @error('barcode') input-error @enderror" />
                     @error('barcode') <p class="field-error">{{ $message }}</p> @enderror
@@ -79,7 +79,7 @@
                     <label for="stock" class="label">Stok Awal</label>
                     <input id="stock" type="number" name="stock" value="{{ old('stock', 0) }}" min="0" step="1" required
                            class="input @error('stock') input-error @enderror" />
-                    <p class="mt-1.5 text-xs text-slate-400">Tercatat otomatis sebagai stok masuk pertama.</p>
+                    <p class="mt-1.5 text-xs text-ink-500">Tercatat otomatis sebagai stok masuk pertama.</p>
                     @error('stock') <p class="field-error">{{ $message }}</p> @enderror
                 </div>
 
@@ -87,14 +87,14 @@
                     <label for="min_stock" class="label">Stok Minimum</label>
                     <input id="min_stock" type="number" name="min_stock" value="{{ old('min_stock', 0) }}" min="0" step="1" required
                            class="input @error('min_stock') input-error @enderror" />
-                    <p class="mt-1.5 text-xs text-slate-400">Peringatan muncul saat stok di bawah angka ini.</p>
+                    <p class="mt-1.5 text-xs text-ink-500">Peringatan muncul saat stok di bawah angka ini.</p>
                     @error('min_stock') <p class="field-error">{{ $message }}</p> @enderror
                 </div>
 
                 <div class="sm:col-span-2">
-                    <label class="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/60 px-4 py-3">
+                    <label class="flex items-center gap-3 rounded-md border border-slate-200 bg-slate-50/60 px-4 py-3">
                         <input type="checkbox" name="is_active" value="1" @checked(old('is_active', true))
-                               class="size-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500" />
+                               class="size-4 rounded border-slate-300 text-accent-600 focus:ring-accent-600" />
                         <span>
                             <span class="block text-sm font-medium text-slate-900">Aktif (bisa dijual)</span>
                             <span class="block text-xs text-slate-500">Produk nonaktif disembunyikan dari halaman kasir.</span>

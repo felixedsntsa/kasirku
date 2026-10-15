@@ -32,7 +32,7 @@
                 </div>
 
                 <div>
-                    <label for="note" class="label">Keterangan <span class="font-normal text-slate-400">(opsional)</span></label>
+                    <label for="note" class="label">Keterangan <span class="font-normal text-ink-500">(opsional)</span></label>
                     <input id="note" type="text" name="note" value="{{ old('note') }}" maxlength="255"
                            placeholder="mis. Restock dari supplier ABC" class="input @error('note') input-error @enderror" />
                     @error('note') <p class="field-error">{{ $message }}</p> @enderror

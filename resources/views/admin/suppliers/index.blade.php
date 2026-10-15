@@ -27,7 +27,7 @@
                 <tbody>
                     @forelse ($suppliers as $supplier)
                         <tr>
-                            <td class="text-slate-400">{{ $suppliers->firstItem() + $loop->index }}</td>
+                            <td class="text-ink-500">{{ $suppliers->firstItem() + $loop->index }}</td>
                             <td class="font-medium text-slate-900">{{ $supplier->name }}</td>
                             <td class="text-slate-600">{{ $supplier->phone ?? '—' }}</td>
                             <td class="max-w-xs truncate text-slate-500">{{ $supplier->address ?? '—' }}</td>

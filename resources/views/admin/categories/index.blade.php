@@ -26,7 +26,7 @@
                 <tbody>
                     @forelse ($categories as $category)
                         <tr>
-                            <td class="text-slate-400">{{ $categories->firstItem() + $loop->index }}</td>
+                            <td class="text-ink-500">{{ $categories->firstItem() + $loop->index }}</td>
                             <td class="font-medium text-slate-900">{{ $category->name }}</td>
                             <td class="text-slate-500">{{ $category->created_at?->format('d/m/Y H:i') }}</td>
                             <td class="text-right">

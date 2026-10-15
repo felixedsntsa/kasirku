@@ -42,7 +42,7 @@
                 </select>
             </div>
             <div class="flex items-end gap-3">
-                <button type="submit" class="btn btn-primary">Terapkan Filter</button>
+                <button type="submit" class="btn btn-secondary">Terapkan Filter</button>
                 @if (request()->hasAny(['product_id', 'type']))
                     <a href="{{ route('admin.stok.index') }}" class="btn btn-ghost">Reset</a>
                 @endif
@@ -71,7 +71,7 @@
                             </td>
                             <td class="font-medium text-slate-900">
                                 {{ $movement->product->name ?? '(dihapus)' }}
-                                <span class="text-xs font-normal text-slate-400">{{ $movement->product->unit ?? '' }}</span>
+                                <span class="text-xs font-normal text-ink-500">{{ $movement->product->unit ?? '' }}</span>
                             </td>
                             <td>
                                 @if ($movement->type === 'in')
@@ -82,7 +82,7 @@
                                     <span class="badge badge-amber">Opname</span>
                                 @endif
                             </td>
-                            <td class="text-right font-mono font-semibold {{ $movement->type === 'out' ? 'text-rose-600' : ($movement->type === 'in' ? 'text-emerald-600' : 'text-slate-700') }}">
+                            <td class="text-right font-mono font-semibold {{ $movement->type === 'out' ? 'text-rose-600' : ($movement->type === 'in' ? 'text-emerald-700' : 'text-slate-700') }}">
                                 @if ($movement->type === 'out')−@elseif ($movement->type === 'in')+@endif{{ $movement->qty }}
                             </td>
                             <td class="max-w-xs truncate text-slate-500">{{ $movement->note ?? '—' }}</td>

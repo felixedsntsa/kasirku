@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
 
 /* Beritahu Tailwind di mana cari class (WAJIB untuk Blade) */
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -26,6 +26,9 @@
   --color-accent-50:  #f0fdfa;  /* latar lembut */
   --color-accent-600: #0f766e;  /* tombol utama, link aktif, focus ring */
   --color-accent-700: #115e59;  /* hover */
+
+  /* Shade aksen untuk latar gelap (sidebar/panel) — teks wajib kontras AA */
+  --color-accent-400: #2dd4bf;
 
   /* Status — hanya untuk makna status, bukan hiasan */
   --color-success: #15803d;
@@ -104,7 +107,7 @@
   }
 
   .table-base {
-    @apply w-full text-sm;
+    @apply w-full text-sm tabular-nums;
   }
 
   .table-base thead {
@@ -177,6 +180,6 @@
   }
 
   .empty-state {
-    @apply px-4 py-16 text-center text-sm text-ink-500;
+    @apply px-4 py-8 text-center text-sm text-ink-500;
   }
 }

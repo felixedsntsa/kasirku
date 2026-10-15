@@ -31,12 +31,12 @@
                         <tr>
                             <td>
                                 <div class="flex items-center gap-3">
-                                    <div class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                                    <div class="flex size-9 shrink-0 items-center justify-center rounded-md bg-accent-50 text-accent-600">
                                         <x-icon name="box" class="size-4" />
                                     </div>
                                     <div class="min-w-0">
                                         <p class="truncate font-medium text-slate-900">{{ $product->name }}</p>
-                                        <p class="truncate font-mono text-xs text-slate-400">{{ $product->sku }}</p>
+                                        <p class="truncate font-mono text-xs text-ink-500">{{ $product->sku }}</p>
                                     </div>
                                 </div>
                             </td>

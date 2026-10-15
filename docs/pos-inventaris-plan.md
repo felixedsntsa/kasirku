@@ -188,7 +188,7 @@ Kasir pilih produk → tambah ke cart (Alpine state / session)
 ## 9. Packaging untuk Portofolio
 
 - **README:** deskripsi, fitur, screenshot/GIF, cara install, akun demo, link live.
-- **Demo online** (Railway/Render free tier) + akun `admin@demo.com` / `kasir@demo.com`.
+- **Demo online** (Railway/Render free tier) + akun `admin@gmail.com` / `kasirku@gmail.com`.
 - **Commit history rapi** (bukan 1 commit "selesai").
 - Sorot 2–3 **keputusan teknis**, mis.:
   - Auth & otorisasi ditulis manual (memahami session guard, hashing, middleware, Gate)

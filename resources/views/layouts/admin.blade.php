@@ -13,7 +13,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @stack('head')
 </head>
-<body class="h-full bg-surface font-sans text-slate-900 antialiased">
+<body class="h-full bg-canvas font-sans text-slate-900 antialiased">
     <div x-data="{ open: false }" class="min-h-full">
 
         {{-- Overlay mobile --}}
@@ -27,14 +27,14 @@
 
             {{-- Brand --}}
             <div class="flex h-16 items-center gap-3 border-b border-white/5 px-5">
-                <div class="flex size-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-sm font-bold shadow-lg shadow-brand-900/40">
+                <div class="flex size-9 items-center justify-center rounded-md bg-accent-600 text-sm font-bold text-white">
                     KK
                 </div>
                 <div>
                     <p class="text-sm font-bold leading-tight">KasirKu</p>
                     <p class="text-[11px] leading-tight text-slate-400">POS &amp; Inventaris</p>
                 </div>
-                <button @click="open = false" class="ml-auto rounded-lg p-1 text-slate-400 hover:bg-white/10 hover:text-white lg:hidden">
+                <button @click="open = false" class="ml-auto rounded-md p-1 text-slate-400 hover:bg-white/10 hover:text-white lg:hidden">
                     <x-icon name="x" class="size-5" />
                 </button>
             </div>
@@ -78,7 +78,7 @@
 
                 @foreach ($menus as $menu)
                     <div>
-                        <p class="px-3 pb-2 text-[10px] font-semibold uppercase tracking-widest text-slate-500">
+                        <p class="px-3 pb-2 text-[10px] font-semibold uppercase tracking-widest text-slate-400">
                             {{ $menu['label'] }}
                         </p>
                         <div class="space-y-1">
@@ -97,7 +97,7 @@
             {{-- User + logout --}}
             <div class="border-t border-white/5 p-4">
                 <div class="flex items-center gap-3">
-                    <div class="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-600 text-xs font-bold uppercase">
+                    <div class="flex size-9 shrink-0 items-center justify-center rounded-full bg-accent-600 text-xs font-bold uppercase">
                         {{ substr(auth()->user()->name, 0, 1) }}
                     </div>
                     <div class="min-w-0 flex-1">
@@ -107,7 +107,7 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" title="Logout"
-                                class="rounded-lg p-2 text-slate-400 transition-colors hover:bg-white/10 hover:text-white">
+                                class="rounded-md p-2 text-slate-400 transition-colors hover:bg-white/10 hover:text-white">
                             <x-icon name="logout" class="size-5" />
                         </button>
                     </form>
@@ -118,17 +118,17 @@
         {{-- Area konten --}}
         <div class="lg:pl-64">
             {{-- Topbar --}}
-            <header class="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-slate-200 bg-white/80 px-4 backdrop-blur-md sm:px-6">
-                <button @click="open = true" class="rounded-lg p-2 text-slate-500 hover:bg-slate-100 lg:hidden">
+            <header class="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-slate-200 bg-white px-4 sm:px-6">
+                <button @click="open = true" class="rounded-md p-2 text-slate-500 hover:bg-slate-100 lg:hidden">
                     <x-icon name="menu" class="size-5" />
                 </button>
                 <h1 class="page-title text-lg">@yield('heading', 'KasirKu')</h1>
                 <div class="ml-auto flex items-center gap-3">
-                    <span class="hidden text-xs font-medium text-slate-400 sm:block">{{ now()->translatedFormat('l, d F Y') }}</span>
+                    <span class="hidden text-xs font-medium text-ink-500 sm:block">{{ now()->translatedFormat('l, d F Y') }}</span>
                 </div>
             </header>
 
-            <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+            <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                 @if (session('success'))
                     <div class="alert-success mb-6" role="status">
                         <x-icon name="check" class="mt-0.5 size-5 shrink-0" />

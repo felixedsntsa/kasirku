@@ -8,12 +8,12 @@
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <div class="card p-5">
             <div class="flex items-center gap-4">
-                <div class="flex size-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                <div class="flex size-11 items-center justify-center rounded-md bg-accent-50 text-accent-600">
                     <x-icon name="cash" class="size-6" />
                 </div>
                 <div class="min-w-0">
-                    <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Omzet Hari Ini</p>
-                    <p class="truncate text-xl font-bold text-slate-900">
+                    <p class="text-xs font-medium uppercase tracking-wide text-ink-500">Omzet Hari Ini</p>
+                    <p class="truncate text-xl font-bold tabular-nums text-slate-900">
                         Rp {{ number_format($todayStats->revenue, 0, ',', '.') }}
                     </p>
                 </div>
@@ -22,38 +22,38 @@
 
         <div class="card p-5">
             <div class="flex items-center gap-4">
-                <div class="flex size-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+                <div class="flex size-11 items-center justify-center rounded-md bg-slate-100 text-slate-500">
                     <x-icon name="receipt" class="size-6" />
                 </div>
                 <div class="min-w-0">
-                    <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Transaksi Hari Ini</p>
-                    <p class="text-xl font-bold text-slate-900">{{ $todayStats->transactions }}</p>
+                    <p class="text-xs font-medium uppercase tracking-wide text-ink-500">Transaksi Hari Ini</p>
+                    <p class="text-xl font-bold tabular-nums text-slate-900">{{ $todayStats->transactions }}</p>
                 </div>
             </div>
         </div>
 
         <div class="card p-5">
             <div class="flex items-center gap-4">
-                <div class="flex size-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                <div class="flex size-11 items-center justify-center rounded-md bg-slate-100 text-slate-500">
                     <x-icon name="chart" class="size-6" />
                 </div>
                 <div class="min-w-0">
-                    <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Omzet Bulan Ini</p>
-                    <p class="truncate text-xl font-bold text-slate-900">
+                    <p class="text-xs font-medium uppercase tracking-wide text-ink-500">Omzet Bulan Ini</p>
+                    <p class="truncate text-xl font-bold tabular-nums text-slate-900">
                         Rp {{ number_format($monthStats->revenue, 0, ',', '.') }}
                     </p>
                 </div>
             </div>
         </div>
 
-        <a href="{{ route('admin.stok.index') }}" class="card p-5 transition-shadow hover:shadow-md">
+        <a href="{{ route('admin.stok.index') }}" class="card p-5">
             <div class="flex items-center gap-4">
-                <div class="flex size-11 items-center justify-center rounded-xl {{ $lowStockCount > 0 ? 'bg-rose-50 text-rose-600' : 'bg-slate-100 text-slate-500' }}">
+                <div class="flex size-11 items-center justify-center rounded-md {{ $lowStockCount > 0 ? 'bg-rose-50 text-rose-600' : 'bg-slate-100 text-slate-500' }}">
                     <x-icon name="alert" class="size-6" />
                 </div>
                 <div class="min-w-0">
-                    <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Stok Menipis</p>
-                    <p class="text-xl font-bold {{ $lowStockCount > 0 ? 'text-rose-600' : 'text-slate-900' }}">
+                    <p class="text-xs font-medium uppercase tracking-wide text-ink-500">Stok Menipis</p>
+                    <p class="text-xl font-bold tabular-nums {{ $lowStockCount > 0 ? 'text-rose-600' : 'text-slate-900' }}">
                         {{ $lowStockCount }} produk
                     </p>
                 </div>
@@ -67,9 +67,9 @@
             <div class="card-header flex items-center justify-between">
                 <div>
                     <h2 class="text-sm font-semibold text-slate-900">Penjualan 30 Hari Terakhir</h2>
-                    <p class="text-xs text-slate-400">Omzet harian (status lunas)</p>
+                    <p class="text-xs text-ink-500">Omzet harian (status lunas)</p>
                 </div>
-                <span class="badge badge-brand">30 hari</span>
+                <span class="badge badge-accent">30 hari</span>
             </div>
             <div class="p-4">
                 <canvas id="salesChart" height="120"></canvas>
@@ -79,7 +79,7 @@
         <div class="card">
             <div class="card-header">
                 <h2 class="text-sm font-semibold text-slate-900">5 Produk Terlaris</h2>
-                <p class="text-xs text-slate-400">Berdasarkan jumlah terjual</p>
+                <p class="text-xs text-ink-500">Berdasarkan jumlah terjual</p>
             </div>
             <div id="topProducts" class="space-y-4 p-5">
                 <p class="empty-state py-6">Memuat…</p>
@@ -92,7 +92,7 @@
         <div class="card xl:col-span-2">
             <div class="card-header flex items-center justify-between">
                 <h2 class="text-sm font-semibold text-slate-900">Transaksi Terbaru</h2>
-                <a href="{{ route('kasir.riwayat') }}" class="text-xs font-medium text-brand-600 hover:underline">Lihat semua</a>
+                <a href="{{ route('kasir.riwayat') }}" class="text-xs font-medium text-accent-600 hover:underline">Lihat semua</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="table-base">
@@ -108,7 +108,7 @@
                         @forelse ($recentSales as $sale)
                             <tr>
                                 <td>
-                                    <a href="{{ route('kasir.struk', $sale) }}" class="font-mono text-xs font-semibold text-brand-600 hover:underline">
+                                    <a href="{{ route('kasir.struk', $sale) }}" class="font-mono text-xs font-semibold text-accent-600 hover:underline">
                                         {{ $sale->invoice_no }}
                                     </a>
                                 </td>
@@ -118,7 +118,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="empty-state py-10">Belum ada transaksi. Mulai dari <a href="{{ route('kasir.home') }}" class="text-brand-600 hover:underline">halaman kasir</a>.</td>
+                                <td colspan="4" class="empty-state">Belum ada transaksi. Mulai dari <a href="{{ route('kasir.home') }}" class="text-accent-600 hover:underline">halaman kasir</a>.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -130,21 +130,21 @@
         <div class="card">
             <div class="card-header">
                 <h2 class="text-sm font-semibold text-slate-900">Peringatan Stok</h2>
-                <p class="text-xs text-slate-400">Stok di bawah atau sama dengan minimum</p>
+                <p class="text-xs text-ink-500">Stok di bawah atau sama dengan minimum</p>
             </div>
             <ul class="divide-y divide-slate-100">
                 @forelse ($lowStock as $product)
                     <li class="flex items-center justify-between px-5 py-3">
                         <div class="min-w-0">
                             <p class="truncate text-sm font-medium text-slate-900">{{ $product->name }}</p>
-                            <p class="text-xs text-slate-400">min. {{ $product->min_stock }} {{ $product->unit }}</p>
+                            <p class="text-xs text-ink-500">min. {{ $product->min_stock }} {{ $product->unit }}</p>
                         </div>
                         <span class="badge {{ $product->stock == 0 ? 'badge-red' : 'badge-amber' }}">
                             {{ $product->stock }} {{ $product->unit }}
                         </span>
                     </li>
                 @empty
-                    <li class="empty-state py-8">Semua stok aman. 🎉</li>
+                    <li class="empty-state">Semua stok aman.</li>
                 @endforelse
             </ul>
         </div>
@@ -164,13 +164,13 @@
                             datasets: [{
                                 label: 'Omzet',
                                 data: data.revenue,
-                                borderColor: '#4f46e5',
+                                borderColor: '#0f766e',
                                 backgroundColor: (ctx) => {
                                     const { ctx: c, chartArea } = ctx.chart;
-                                    if (!chartArea) return 'rgba(79,70,229,.1)';
+                                    if (!chartArea) return 'rgba(15,118,110,.1)';
                                     const grad = c.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-                                    grad.addColorStop(0, 'rgba(79,70,229,.25)');
-                                    grad.addColorStop(1, 'rgba(79,70,229,0)');
+                                    grad.addColorStop(0, 'rgba(15,118,110,.25)');
+                                    grad.addColorStop(1, 'rgba(15,118,110,0)');
                                     return grad;
                                 },
                                 fill: true,
@@ -192,12 +192,12 @@
                                 },
                             },
                             scales: {
-                                x: { grid: { display: false }, ticks: { maxTicksLimit: 10, color: '#94a3b8', font: { size: 11 } } },
+                                x: { grid: { display: false }, ticks: { maxTicksLimit: 10, color: '#6b7280', font: { size: 11 } } },
                                 y: {
-                                    grid: { color: '#f1f5f9' },
+                                    grid: { color: '#e5e7eb' },
                                     border: { display: false },
                                     ticks: {
-                                        color: '#94a3b8',
+                                        color: '#6b7280',
                                         font: { size: 11 },
                                         callback: (v) => v >= 1000000 ? (v / 1000000) + ' jt' : (v >= 1000 ? (v / 1000) + ' rb' : v),
                                     },
@@ -217,10 +217,10 @@
                         <div>
                             <div class="mb-1 flex items-center justify-between text-sm">
                                 <span class="font-medium text-slate-700">${i + 1}. ${p.name}</span>
-                                <span class="font-semibold text-slate-900">${p.qty} terjual</span>
+                                <span class="font-semibold tabular-nums text-slate-900">${p.qty} terjual</span>
                             </div>
-                            <div class="h-2 overflow-hidden rounded-full bg-slate-100">
-                                <div class="h-full rounded-full bg-gradient-to-r from-brand-500 to-brand-700" style="width: ${max ? (p.qty / max) * 100 : 0}%"></div>
+                            <div class="h-2 overflow-hidden rounded-sm bg-slate-100">
+                                <div class="h-full bg-accent-600" style="width: ${max ? (p.qty / max) * 100 : 0}%"></div>
                             </div>
                         </div>
                     `).join('');

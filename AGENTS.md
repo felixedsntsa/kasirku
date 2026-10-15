@@ -84,4 +84,5 @@ php artisan migrate:fresh --seed             # reset DB + data demo
 - Kerjakan satu prompt/modul per sesi, verifikasi dulu sebelum lanjut; commit kecil & deskriptif.
 - Verifikasi milestone: `php artisan migrate:fresh --seed` sukses + `php artisan test` hijau +
   cek route admin terproteksi `role`.
-- Data demo (dibuat di M4): `admin@demo.com` / `kasir@demo.com`, password: `password`.
+- Data awal **hanya 2 akun** (DB bersih, isi diisi admin lewat aplikasi):
+  `admin@gmail.com` / `admin123` (admin) & `kasirku@gmail.com` / `kasirku123` (kasir).

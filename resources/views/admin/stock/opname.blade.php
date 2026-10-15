@@ -40,7 +40,7 @@
                 <input type="hidden" name="old_stock" id="old_stock" value="{{ old('old_stock') }}">
 
                 <div>
-                    <label for="note" class="label">Keterangan <span class="font-normal text-slate-400">(opsional)</span></label>
+                    <label for="note" class="label">Keterangan <span class="font-normal text-ink-500">(opsional)</span></label>
                     <input id="note" type="text" name="note" value="{{ old('note', 'Stok opname fisik') }}" maxlength="255"
                            class="input @error('note') input-error @enderror" />
                     @error('note') <p class="field-error">{{ $message }}</p> @enderror

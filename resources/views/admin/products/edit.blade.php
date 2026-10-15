@@ -37,7 +37,7 @@
                 </div>
 
                 <div>
-                    <label for="supplier_id" class="label">Supplier <span class="font-normal text-slate-400">(opsional)</span></label>
+                    <label for="supplier_id" class="label">Supplier <span class="font-normal text-ink-500">(opsional)</span></label>
                     <select id="supplier_id" name="supplier_id"
                             class="input @error('supplier_id') input-error @enderror">
                         <option value="">— Tanpa supplier —</option>
@@ -49,7 +49,7 @@
                 </div>
 
                 <div>
-                    <label for="barcode" class="label">Barcode <span class="font-normal text-slate-400">(opsional)</span></label>
+                    <label for="barcode" class="label">Barcode <span class="font-normal text-ink-500">(opsional)</span></label>
                     <input id="barcode" type="text" name="barcode" value="{{ old('barcode', $produk->barcode) }}"
                            class="input font-mono @error('barcode') input-error @enderror" />
                     @error('barcode') <p class="field-error">{{ $message }}</p> @enderror
@@ -82,7 +82,7 @@
                     <div class="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2.5">
                         <span class="text-sm font-semibold text-slate-700">{{ $produk->stock }} {{ $produk->unit }}</span>
                         <a href="{{ route('admin.stok.index', ['product_id' => $produk->id]) }}"
-                           class="text-xs font-medium text-brand-600 hover:underline">Riwayat stok</a>
+                           class="text-xs font-medium text-accent-600 hover:underline">Riwayat stok</a>
                     </div>
                 </div>
 
@@ -94,9 +94,9 @@
                 </div>
 
                 <div class="sm:col-span-2">
-                    <label class="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/60 px-4 py-3">
+                    <label class="flex items-center gap-3 rounded-md border border-slate-200 bg-slate-50/60 px-4 py-3">
                         <input type="checkbox" name="is_active" value="1" @checked(old('is_active', $produk->is_active))
-                               class="size-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500" />
+                               class="size-4 rounded border-slate-300 text-accent-600 focus:ring-accent-600" />
                         <span>
                             <span class="block text-sm font-medium text-slate-900">Aktif (bisa dijual)</span>
                             <span class="block text-xs text-slate-500">Produk nonaktif disembunyikan dari halaman kasir.</span>

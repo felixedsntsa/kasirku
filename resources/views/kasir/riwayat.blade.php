@@ -40,7 +40,7 @@
                                 @endif
                             </td>
                             <td class="text-right">
-                                <a href="{{ route('kasir.struk', $sale) }}" class="font-medium text-brand-600 hover:underline">
+                                <a href="{{ route('kasir.struk', $sale) }}" class="font-medium text-accent-600 hover:underline">
                                     Lihat
                                 </a>
                             </td>

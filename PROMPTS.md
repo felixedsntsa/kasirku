@@ -253,9 +253,8 @@ Tanpa package.
 ### Prompt 4.2 — Seeder & Factory demo
 ```
 Bikin seeder + factory untuk data demo (agar orang bisa langsung coba):
-- 1 user admin (admin@demo.com) & 1 kasir (kasir@demo.com), password: password
-- 10 kategori, 5 supplier, 50 produk dengan stok acak
-- 30 transaksi penjualan tersebar 30 hari terakhir (via SaleService agar stok konsisten)
+- 2 akun inti saja (DB bersih): 1 admin (admin@gmail.com / admin123) & 1 kasir (kasirku@gmail.com / kasirku123)
+- TIDAK ada data demo lain — kategori, supplier, produk, stok, dan transaksi diisi admin lewat aplikasi
 Jalankan `php artisan migrate:fresh --seed` dan pastikan sukses.
 ```
 
@@ -277,7 +276,7 @@ Tulis README.md yang menjual untuk portofolio, berisi:
 - Fitur utama
 - Tech stack (Laravel 13, full manual/minim package)
 - Cara install di Laragon (langkah jelas)
-- Akun demo (admin@demo.com / kasir@demo.com, password: password)
+- Akun demo (admin@gmail.com / admin123 & kasirku@gmail.com / kasirku123)
 - 3 keputusan teknis: (1) auth & otorisasi hand-roll, (2) stock_movements auditable,
   (3) transaksi atomik dengan lockForUpdate()
 - Link demo (placeholder)

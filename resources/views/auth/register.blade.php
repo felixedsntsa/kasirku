@@ -53,6 +53,6 @@
 
     <p class="mt-8 text-center text-sm text-slate-500">
         Sudah punya akun?
-        <a href="{{ route('login') }}" class="font-semibold text-brand-600 hover:underline">Login</a>
+        <a href="{{ route('login') }}" class="font-semibold text-accent-600 hover:underline">Login</a>
     </p>
 @endsection

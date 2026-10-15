@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 /**
- * SATU-satunya tempat transaksi penjualan dibuat.
+ * SATU-satunya tempat transaksi penjualan dibuat (store) dan dibatalkan (void).
  *
  * Alur store() (wajib atomik — lihat AGENTS.md):
  *   DB::transaction()
@@ -124,6 +124,43 @@ class SaleService
             ]);
 
             return $sale->fresh('items');
+        });
+    }
+
+    /**
+     * Void (batalkan) transaksi — stok DIKEMBALIKAN lewat StockService, status jadi 'void'.
+     *
+     * Atomik: set status + kembalikan semua item dalam satu transaction.
+     * Ditolak bila transaksi sudah pernah di-void (tidak boleh dobel).
+     *
+     * @throws ValidationException bila transaksi sudah void.
+     */
+    public function void(Sale $sale, User $actor): Sale
+    {
+        return DB::transaction(function () use ($sale, $actor) {
+            // Kunci baris sale — dua void bersamaan tidak boleh double-restore stok.
+            $fresh = Sale::lockForUpdate()->findOrFail($sale->id);
+
+            if ($fresh->status === Sale::STATUS_VOID) {
+                throw ValidationException::withMessages([
+                    'sale' => 'Transaksi '.$fresh->invoice_no.' sudah pernah di-void.',
+                ]);
+            }
+
+            foreach ($fresh->items()->with('product')->get() as $item) {
+                // Kembalikan stok — wajib lewat StockService -> tercatat di stock_movements.
+                $this->stockService->recordIn(
+                    $item->product,
+                    $item->qty,
+                    'Void '.$fresh->invoice_no,
+                    $fresh,
+                    $actor,
+                );
+            }
+
+            $fresh->update(['status' => Sale::STATUS_VOID]);
+
+            return $fresh;
         });
     }
 

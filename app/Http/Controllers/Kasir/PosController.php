@@ -10,6 +10,7 @@ use App\Models\Sale;
 use App\Services\SaleService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class PosController extends Controller
 {
@@ -95,5 +96,27 @@ class PosController extends Controller
             ->paginate(15);
 
         return view('kasir.riwayat', compact('sales'));
+    }
+
+    /**
+     * Void transaksi dari riwayat — stok dikembalikan lewat SaleService (atomik).
+     * Kasir hanya boleh membatalkan transaksinya sendiri; admin boleh semua.
+     */
+    public function void(Request $request, Sale $sale)
+    {
+        $user = $request->user();
+
+        if (! $user->isAdmin() && $sale->user_id !== $user->id) {
+            abort(403, 'Hanya bisa membatalkan transaksi sendiri.');
+        }
+
+        try {
+            $this->saleService->void($sale, $user);
+        } catch (ValidationException $e) {
+            return back()->with('error', implode(' ', $e->errors()));
+        }
+
+        return redirect()->route('kasir.riwayat')
+            ->with('success', 'Transaksi '.$sale->invoice_no.' di-void. Stok telah dikembalikan.');
     }
 }

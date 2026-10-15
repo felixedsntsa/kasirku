@@ -35,7 +35,8 @@
                                 <div class="inline-flex items-center gap-1">
                                     <a href="{{ route('admin.supplier.edit', $supplier) }}" class="btn btn-ghost btn-sm">Edit</a>
                                     <form method="POST" action="{{ route('admin.supplier.destroy', $supplier) }}"
-                                          onsubmit="return confirm('Hapus supplier {{ $supplier->name }}?')">
+                                          data-confirm="Apakah Anda yakin menghapus supplier {{ $supplier->name }}? Produk terkait akan menjadi tanpa supplier. Tindakan ini tidak bisa dibatalkan."
+                                          onsubmit="return confirm(this.dataset.confirm)">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-ghost btn-sm text-rose-600 hover:text-rose-700">Hapus</button>

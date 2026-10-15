@@ -4,12 +4,22 @@
 @section('heading', 'Produk')
 
 @section('content')
-    <div class="mb-6 flex items-center justify-between">
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
         <p class="page-subtitle">Katalog produk yang dijual di toko.</p>
-        <a href="{{ route('admin.produk.create') }}" class="btn btn-primary">
-            <x-icon name="plus" class="size-4" />
-            Tambah Produk
-        </a>
+        <div class="flex flex-wrap items-center gap-2">
+            <a href="{{ route('admin.produk.export') }}" class="btn btn-secondary">
+                <x-icon name="arrow-down" class="size-4" />
+                Export CSV
+            </a>
+            <a href="{{ route('admin.produk.import') }}" class="btn btn-secondary">
+                <x-icon name="arrow-up" class="size-4" />
+                Import CSV
+            </a>
+            <a href="{{ route('admin.produk.create') }}" class="btn btn-primary">
+                <x-icon name="plus" class="size-4" />
+                Tambah Produk
+            </a>
+        </div>
     </div>
 
     <div class="card overflow-hidden">
@@ -65,7 +75,8 @@
                                 <div class="inline-flex items-center gap-1">
                                     <a href="{{ route('admin.produk.edit', $product) }}" class="btn btn-ghost btn-sm">Edit</a>
                                     <form method="POST" action="{{ route('admin.produk.destroy', $product) }}"
-                                          onsubmit="return confirm('Hapus produk {{ $product->name }}?')">
+                                          data-confirm="Apakah Anda yakin menghapus produk {{ $product->name }}? Produk dengan riwayat penjualan tidak bisa dihapus. Tindakan ini tidak bisa dibatalkan."
+                                          onsubmit="return confirm(this.dataset.confirm)">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-ghost btn-sm text-rose-600 hover:text-rose-700">Hapus</button>

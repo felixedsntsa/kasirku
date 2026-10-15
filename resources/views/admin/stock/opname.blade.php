@@ -4,17 +4,20 @@
 @section('heading', 'Stok Opname')
 
 @section('content')
+    <div class="mx-auto max-w-xl">
     <p class="page-subtitle mb-6">
         Sesuaikan stok sistem dengan hasil hitung fisik. Stok akan <strong>diset</strong> ke angka yang Anda masukkan.
     </p>
 
-    <div class="card max-w-xl">
+    <div class="card">
         <div class="card-body">
-            <form method="POST" action="{{ route('admin.stok.opname.store') }}" class="space-y-5">
+            <form method="POST" action="{{ route('admin.stok.opname.store') }}" class="space-y-5"
+                  data-confirm="Simpan hasil stok opname? Stok sistem akan diset tepat ke angka hasil hitung fisik Anda dan tercatat di riwayat."
+                  onsubmit="return confirm(this.dataset.confirm)">
                 @csrf
 
                 <div>
-                    <label for="product_id" class="label">Produk</label>
+                    <label for="product_id" class="label">Produk <span class="text-danger">*</span></label>
                     <select id="product_id" name="product_id" required
                             class="input @error('product_id') input-error @enderror"
                             onchange="document.getElementById('old_stock').value = this.selectedOptions[0]?.dataset.stock ?? ''">
@@ -30,7 +33,7 @@
                 </div>
 
                 <div>
-                    <label for="qty" class="label">Stok Fisik Hasil Hitung</label>
+                    <label for="qty" class="label">Stok Fisik Hasil Hitung <span class="text-danger">*</span></label>
                     <input id="qty" type="number" name="qty" value="{{ old('qty') }}" min="0" step="1" required
                            placeholder="mis. 45" class="input @error('qty') input-error @enderror" />
                     @error('qty') <p class="field-error">{{ $message }}</p> @enderror
@@ -51,9 +54,10 @@
                         <x-icon name="adjust" class="size-4" />
                         Simpan Opname
                     </button>
-                    <a href="{{ route('admin.stok.index') }}" class="btn btn-ghost">Batal</a>
+                    <a href="{{ route('admin.stok.index') }}" class="btn btn-secondary">Batal</a>
                 </div>
             </form>
         </div>
+    </div>
     </div>
 @endsection

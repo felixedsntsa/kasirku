@@ -18,7 +18,7 @@
                         <th class="text-right">Total</th>
                         <th>Metode</th>
                         <th>Status</th>
-                        <th class="text-right">Struk</th>
+                        <th class="text-right">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,9 +40,19 @@
                                 @endif
                             </td>
                             <td class="text-right">
-                                <a href="{{ route('kasir.struk', $sale) }}" class="font-medium text-accent-600 hover:underline">
-                                    Lihat
-                                </a>
+                                <div class="inline-flex items-center gap-3">
+                                    <a href="{{ route('kasir.struk', $sale) }}" class="font-medium text-accent-600 hover:underline">
+                                        Struk
+                                    </a>
+                                    @if ($sale->isPaid())
+                                        <form method="POST" action="{{ route('kasir.riwayat.void', $sale) }}"
+                                              data-confirm="Batalkan transaksi {{ $sale->invoice_no }}? Stok akan dikembalikan dan transaksi ditandai Void. Tindakan ini tidak bisa dibatalkan."
+                                              onsubmit="return confirm(this.dataset.confirm)">
+                                            @csrf
+                                            <button type="submit" class="font-medium text-rose-600 hover:underline">Void</button>
+                                        </form>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                     @empty

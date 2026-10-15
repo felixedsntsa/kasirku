@@ -33,7 +33,8 @@
                                 <div class="inline-flex items-center gap-1">
                                     <a href="{{ route('admin.kategori.edit', $category) }}" class="btn btn-ghost btn-sm">Edit</a>
                                     <form method="POST" action="{{ route('admin.kategori.destroy', $category) }}"
-                                          onsubmit="return confirm('Hapus kategori {{ $category->name }}?')">
+                                          data-confirm="Apakah Anda yakin menghapus kategori {{ $category->name }}? Kategori yang dipakai produk tidak bisa dihapus. Tindakan ini tidak bisa dibatalkan."
+                                          onsubmit="return confirm(this.dataset.confirm)">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-ghost btn-sm text-rose-600 hover:text-rose-700">Hapus</button>

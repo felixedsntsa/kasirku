@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'KasirKu')</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="h-full bg-canvas font-sans text-slate-900 antialiased">
@@ -16,10 +17,8 @@
         {{-- Panel info (kiri) --}}
         <div class="relative hidden w-1/2 overflow-hidden bg-sidebar lg:block">
             <div class="relative flex h-full flex-col justify-between p-8 text-white">
-                <a href="{{ route('welcome') }}" class="flex items-center gap-3">
-                    <div class="flex size-10 items-center justify-center rounded-md bg-accent-600 text-sm font-bold text-white">
-                        KK
-                    </div>
+                <a href="{{ url('/') }}" class="flex items-center gap-3">
+                    <img src="{{ asset('favicon.svg') }}" alt="KasirKu" width="40" height="40" class="size-10" />
                     <span class="text-lg font-bold">KasirKu</span>
                 </a>
 
@@ -62,10 +61,8 @@
         <div class="flex w-full items-center justify-center px-4 py-8 lg:w-1/2">
             <main class="w-full max-w-sm">
                 {{-- Logo mobile --}}
-                <a href="{{ route('welcome') }}" class="mb-8 flex items-center gap-3 lg:hidden">
-                    <div class="flex size-10 items-center justify-center rounded-md bg-accent-600 text-sm font-bold text-white">
-                        KK
-                    </div>
+                <a href="{{ url('/') }}" class="mb-8 flex items-center gap-3 lg:hidden">
+                    <img src="{{ asset('favicon.svg') }}" alt="KasirKu" width="40" height="40" class="size-10" />
                     <span class="text-lg font-bold">KasirKu</span>
                 </a>
 

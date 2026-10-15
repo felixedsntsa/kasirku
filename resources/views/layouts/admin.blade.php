@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'KasirKu')</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @stack('head')
@@ -27,13 +28,13 @@
 
             {{-- Brand --}}
             <div class="flex h-16 items-center gap-3 border-b border-white/5 px-5">
-                <div class="flex size-9 items-center justify-center rounded-md bg-accent-600 text-sm font-bold text-white">
-                    KK
-                </div>
-                <div>
-                    <p class="text-sm font-bold leading-tight">KasirKu</p>
-                    <p class="text-[11px] leading-tight text-slate-400">POS &amp; Inventaris</p>
-                </div>
+                <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('kasir.home') }}" class="flex items-center gap-3">
+                    <img src="{{ asset('favicon.svg') }}" alt="KasirKu" width="36" height="36" class="size-9" />
+                    <div>
+                        <p class="text-sm font-bold leading-tight">KasirKu</p>
+                        <p class="text-[11px] leading-tight text-slate-400">POS &amp; Inventaris</p>
+                    </div>
+                </a>
                 <button @click="open = false" class="ml-auto rounded-md p-1 text-slate-400 hover:bg-white/10 hover:text-white lg:hidden">
                     <x-icon name="x" class="size-5" />
                 </button>
@@ -59,6 +60,10 @@
                             ['icon' => 'truck', 'label' => 'Supplier', 'route' => route('admin.supplier.index'), 'active' => request()->routeIs('admin.supplier.*')],
                         ]];
 
+                        $menus[] = ['label' => 'Pengguna', 'items' => [
+                            ['icon' => 'users', 'label' => 'Kelola Kasir', 'route' => route('admin.kasir.index'), 'active' => request()->routeIs('admin.kasir.*')],
+                        ]];
+
                         $menus[] = ['label' => 'Persediaan', 'items' => [
                             ['icon' => 'archive', 'label' => 'Riwayat Stok', 'route' => route('admin.stok.index'), 'active' => request()->routeIs('admin.stok.index')],
                             ['icon' => 'arrow-down', 'label' => 'Stok Masuk', 'route' => route('admin.stok.create'), 'active' => request()->routeIs('admin.stok.create')],
@@ -74,6 +79,11 @@
                             ['icon' => 'receipt', 'label' => 'Riwayat Transaksi', 'route' => route('kasir.riwayat'), 'active' => request()->routeIs('kasir.riwayat')],
                         ]];
                     }
+
+                    // Berlaku untuk semua role.
+                    $menus[] = ['label' => 'Akun', 'items' => [
+                        ['icon' => 'user', 'label' => 'Profil Saya', 'route' => route('profile.edit'), 'active' => request()->routeIs('profile.*')],
+                    ]];
                 @endphp
 
                 @foreach ($menus as $menu)

@@ -4,15 +4,16 @@
 @section('heading', 'Stok Masuk')
 
 @section('content')
+    <div class="mx-auto max-w-xl">
     <p class="page-subtitle mb-6">Catat restock/pembelian barang. Perubahan stok tercatat otomatis di riwayat.</p>
 
-    <div class="card max-w-xl">
+    <div class="card">
         <div class="card-body">
             <form method="POST" action="{{ route('admin.stok.store') }}" class="space-y-5">
                 @csrf
 
                 <div>
-                    <label for="product_id" class="label">Produk</label>
+                    <label for="product_id" class="label">Produk <span class="text-danger">*</span></label>
                     <select id="product_id" name="product_id" required class="input @error('product_id') input-error @enderror">
                         <option value="">— Pilih produk —</option>
                         @foreach ($products as $product)
@@ -25,7 +26,7 @@
                 </div>
 
                 <div>
-                    <label for="qty" class="label">Jumlah Masuk</label>
+                    <label for="qty" class="label">Jumlah Masuk <span class="text-danger">*</span></label>
                     <input id="qty" type="number" name="qty" value="{{ old('qty') }}" min="1" step="1" required
                            placeholder="mis. 50" class="input @error('qty') input-error @enderror" />
                     @error('qty') <p class="field-error">{{ $message }}</p> @enderror
@@ -43,9 +44,10 @@
                         <x-icon name="arrow-down" class="size-4" />
                         Simpan Stok Masuk
                     </button>
-                    <a href="{{ route('admin.stok.index') }}" class="btn btn-ghost">Batal</a>
+                    <a href="{{ route('admin.stok.index') }}" class="btn btn-secondary">Batal</a>
                 </div>
             </form>
         </div>
+    </div>
     </div>
 @endsection

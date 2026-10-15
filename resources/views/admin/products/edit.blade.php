@@ -4,28 +4,30 @@
 @section('heading', 'Edit Produk')
 
 @section('content')
-    <div class="card max-w-3xl">
+    <div class="mx-auto max-w-3xl">
+    <p class="page-subtitle mb-6">Perbarui data produk. Stok hanya bisa diubah lewat menu Stok.</p>
+    <div class="card">
         <div class="card-body">
             <form method="POST" action="{{ route('admin.produk.update', $produk) }}" class="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 @csrf
                 @method('PUT')
 
                 <div>
-                    <label for="name" class="label">Nama</label>
+                    <label for="name" class="label">Nama <span class="text-danger">*</span></label>
                     <input id="name" type="text" name="name" value="{{ old('name', $produk->name) }}" required autofocus
                            class="input @error('name') input-error @enderror" />
                     @error('name') <p class="field-error">{{ $message }}</p> @enderror
                 </div>
 
                 <div>
-                    <label for="sku" class="label">SKU</label>
+                    <label for="sku" class="label">SKU <span class="text-danger">*</span></label>
                     <input id="sku" type="text" name="sku" value="{{ old('sku', $produk->sku) }}" required
                            class="input font-mono @error('sku') input-error @enderror" />
                     @error('sku') <p class="field-error">{{ $message }}</p> @enderror
                 </div>
 
                 <div>
-                    <label for="category_id" class="label">Kategori</label>
+                    <label for="category_id" class="label">Kategori <span class="text-danger">*</span></label>
                     <select id="category_id" name="category_id" required
                             class="input @error('category_id') input-error @enderror">
                         <option value="">— Pilih kategori —</option>
@@ -56,21 +58,21 @@
                 </div>
 
                 <div>
-                    <label for="unit" class="label">Satuan</label>
+                    <label for="unit" class="label">Satuan <span class="text-danger">*</span></label>
                     <input id="unit" type="text" name="unit" value="{{ old('unit', $produk->unit) }}" required
                            class="input @error('unit') input-error @enderror" />
                     @error('unit') <p class="field-error">{{ $message }}</p> @enderror
                 </div>
 
                 <div>
-                    <label for="cost_price" class="label">Harga Beli (Rp)</label>
+                    <label for="cost_price" class="label">Harga Beli (Rp) <span class="text-danger">*</span></label>
                     <input id="cost_price" type="number" name="cost_price" value="{{ old('cost_price', $produk->cost_price) }}" min="0" step="1" required
                            class="input @error('cost_price') input-error @enderror" />
                     @error('cost_price') <p class="field-error">{{ $message }}</p> @enderror
                 </div>
 
                 <div>
-                    <label for="sell_price" class="label">Harga Jual (Rp)</label>
+                    <label for="sell_price" class="label">Harga Jual (Rp) <span class="text-danger">*</span></label>
                     <input id="sell_price" type="number" name="sell_price" value="{{ old('sell_price', $produk->sell_price) }}" min="0" step="1" required
                            class="input @error('sell_price') input-error @enderror" />
                     @error('sell_price') <p class="field-error">{{ $message }}</p> @enderror
@@ -87,7 +89,7 @@
                 </div>
 
                 <div>
-                    <label for="min_stock" class="label">Stok Minimum</label>
+                    <label for="min_stock" class="label">Stok Minimum <span class="text-danger">*</span></label>
                     <input id="min_stock" type="number" name="min_stock" value="{{ old('min_stock', $produk->min_stock) }}" min="0" step="1" required
                            class="input @error('min_stock') input-error @enderror" />
                     @error('min_stock') <p class="field-error">{{ $message }}</p> @enderror
@@ -106,9 +108,10 @@
 
                 <div class="sm:col-span-2 flex items-center gap-3 pt-2">
                     <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                    <a href="{{ route('admin.produk.index') }}" class="btn btn-ghost">Batal</a>
+                    <a href="{{ route('admin.produk.index') }}" class="btn btn-secondary">Batal</a>
                 </div>
             </form>
         </div>
+    </div>
     </div>
 @endsection

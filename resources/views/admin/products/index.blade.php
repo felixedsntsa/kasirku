@@ -73,14 +73,18 @@
                             </td>
                             <td class="text-right">
                                 <div class="inline-flex items-center gap-1">
-                                    <a href="{{ route('admin.produk.edit', $product) }}" class="btn btn-ghost btn-sm">Edit</a>
-                                    <form method="POST" action="{{ route('admin.produk.destroy', $product) }}"
-                                          data-confirm="Apakah Anda yakin menghapus produk {{ $product->name }}? Produk dengan riwayat penjualan tidak bisa dihapus. Tindakan ini tidak bisa dibatalkan."
-                                          onsubmit="return confirm(this.dataset.confirm)">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-ghost btn-sm text-rose-600 hover:text-rose-700">Hapus</button>
-                                    </form>
+                                    @can('update', $product)
+                                        <a href="{{ route('admin.produk.edit', $product) }}" class="btn btn-ghost btn-sm">Edit</a>
+                                    @endcan
+                                    @can('delete', $product)
+                                        <form method="POST" action="{{ route('admin.produk.destroy', $product) }}"
+                                              data-confirm="Apakah Anda yakin menghapus produk {{ $product->name }}? Produk dengan riwayat penjualan tidak bisa dihapus. Tindakan ini tidak bisa dibatalkan."
+                                              onsubmit="return confirm(this.dataset.confirm)">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-ghost btn-sm text-rose-600 hover:text-rose-700">Hapus</button>
+                                        </form>
+                                    @endcan
                                 </div>
                             </td>
                         </tr>

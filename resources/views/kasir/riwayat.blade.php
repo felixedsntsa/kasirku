@@ -45,12 +45,14 @@
                                         Struk
                                     </a>
                                     @if ($sale->isPaid())
-                                        <form method="POST" action="{{ route('kasir.riwayat.void', $sale) }}"
-                                              data-confirm="Batalkan transaksi {{ $sale->invoice_no }}? Stok akan dikembalikan dan transaksi ditandai Void. Tindakan ini tidak bisa dibatalkan."
-                                              onsubmit="return confirm(this.dataset.confirm)">
-                                            @csrf
-                                            <button type="submit" class="font-medium text-rose-600 hover:underline">Void</button>
-                                        </form>
+                                        @can('void', $sale)
+                                            <form method="POST" action="{{ route('kasir.riwayat.void', $sale) }}"
+                                                  data-confirm="Batalkan transaksi {{ $sale->invoice_no }}? Stok akan dikembalikan dan transaksi ditandai Void. Tindakan ini tidak bisa dibatalkan."
+                                                  onsubmit="return confirm(this.dataset.confirm)">
+                                                @csrf
+                                                <button type="submit" class="font-medium text-rose-600 hover:underline">Void</button>
+                                            </form>
+                                        @endcan
                                     @endif
                                 </div>
                             </td>

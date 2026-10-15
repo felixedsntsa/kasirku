@@ -10,6 +10,7 @@ use App\Models\Sale;
 use App\Services\SaleService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 
 class PosController extends Controller
@@ -76,9 +77,12 @@ class PosController extends Controller
 
     /**
      * Halaman struk (siap cetak, 58mm/80mm).
+     * Kasir hanya boleh melihat struk miliknya sendiri; admin semua (SalePolicy).
      */
     public function receipt(Sale $sale)
     {
+        Gate::authorize('view', $sale);
+
         $sale->load(['items.product:id,name,unit', 'user:id,name']);
 
         return view('kasir.struk', compact('sale'));
@@ -100,15 +104,13 @@ class PosController extends Controller
 
     /**
      * Void transaksi dari riwayat — stok dikembalikan lewat SaleService (atomik).
-     * Kasir hanya boleh membatalkan transaksinya sendiri; admin boleh semua.
+     * Kasir hanya boleh membatalkan transaksinya sendiri; admin boleh semua (SalePolicy).
      */
     public function void(Request $request, Sale $sale)
     {
         $user = $request->user();
 
-        if (! $user->isAdmin() && $sale->user_id !== $user->id) {
-            abort(403, 'Hanya bisa membatalkan transaksi sendiri.');
-        }
+        Gate::authorize('void', $sale);
 
         try {
             $this->saleService->void($sale, $user);

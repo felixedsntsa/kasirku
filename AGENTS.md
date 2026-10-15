@@ -5,6 +5,7 @@ Dikembangkan di Laragon (Windows): app di `http://kasirku.test`, MySQL database 
 
 **Rujukan utama:**
 - `docs/pos-inventaris-plan.md` — arsitektur, ERD, keputusan teknis (dimuat otomatis tiap sesi via `opencode.json`)
+- `docs/DESIGN.md` — **panduan desain UI (WAJIB dibaca sebelum menyentuh Blade/CSS apa pun).**
 - `PROMPTS.md` — urutan tugas per milestone (M1–M4), jalankan satu per satu
 
 **Status (Okt 2026):** masih skeleton Laravel bawaan — belum ada auth, Services, atau modul POS.
@@ -61,6 +62,21 @@ php artisan migrate:fresh --seed             # reset DB + data demo
 - Service layer di `app/Services/` (`StockService`, `SaleService`) — logika bisnis keluar dari controller; controller tipis.
 - Form Request untuk validasi (`app/Http/Requests/`); eager load relasi di tabel index (hindari N+1).
 - ERD lengkap & field tiap tabel: `docs/pos-inventaris-plan.md` §4.
+
+## Konvensi UI (anti "AI slop")
+
+**WAJIB baca `docs/DESIGN.md` sebelum menulis/mengubah Blade atau CSS apa pun.** Ringkas:
+- Dilarang: gradient ungu/indigo, emoji sebagai ikon, `rounded-2xl`/`shadow-xl` seragam,
+  glassmorphism, animasi berlebihan, teks marketing di UI internal.
+- Warna: mayoritas netral; **satu** aksen tegas (bukan indigo `#6366f1` default). Warna status
+  hanya untuk makna status. Aksen dipakai hemat.
+- Radius dari skala (4/8/12px); shadow maksimum `shadow-sm`; spacing skala 4px.
+- Angka/uang: `tabular-nums`. Judul halaman ≤ `text-2xl`.
+- Pakai komponen reusable di `@layer components` `app.css` (`.btn`, `.card`, `.input`,
+  `.table-base`, `.badge-*`) — jangan tulis 20 class Tailwind inline berulang.
+- Token baru → tambahkan di `@theme` `app.css`, jangan hardcode di Blade.
+- Sebelum menandai tugas UI selesai: jalankan checklist `docs/DESIGN.md` §7.
+- Kalau ragu antara "lebih menarik" vs "sesuai aturan": **pilih sesuai aturan.**
 
 ## Alur kerja
 

@@ -6,21 +6,40 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
-/* Token desain — font di-fetch plugin bunny di vite.config.js */
+/*
+ * Token desain — docs/DESIGN.md §3.1 (warna), §3.3 (radius/shadow).
+ * Netral hangat untuk mayoritas UI + SATU aksen teal. Tidak ada indigo/gradient brand lama.
+ */
 @theme {
   --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, "Cascadia Code", "SF Mono", Menlo, monospace;
 
-  --color-brand-50: #eef2ff;
-  --color-brand-100: #e0e7ff;
-  --color-brand-500: #6366f1;
-  --color-brand-600: #4f46e5;
-  --color-brand-700: #4338ca;
-  --color-brand-900: #312e81;
+  /* Netral (mayoritas UI) — dipakai untuk 90% tampilan */
+  --color-ink-900: #14161a;   /* teks utama */
+  --color-ink-700: #3a3f47;   /* teks sekunder */
+  --color-ink-500: #6b7280;   /* teks muted / label */
+  --color-line:    #e5e7eb;   /* border */
+  --color-canvas:  #f7f7f8;   /* latar halaman */
+  --color-surface: #ffffff;   /* latar kartu/tabel */
 
-  --color-surface: #f6f7fb;
+  /* Aksen TUNGGAL — teal (tenang, bukan default Tailwind) */
+  --color-accent-50:  #f0fdfa;  /* latar lembut */
+  --color-accent-600: #0f766e;  /* tombol utama, link aktif, focus ring */
+  --color-accent-700: #115e59;  /* hover */
+
+  /* Status — hanya untuk makna status, bukan hiasan */
+  --color-success: #15803d;
+  --color-warning: #b45309;
+  --color-danger:  #b91c1c;
+
+  /* Sidebar gelap (netral) */
   --color-sidebar: #111827;
   --color-sidebar-hover: #1f2937;
+
+  /* Radius skala (§3.3) — tidak ada radius > 12px */
+  --radius-sm: 4px;   /* badge, tag kecil */
+  --radius-md: 8px;   /* tombol, input, kartu — DEFAULT */
+  --radius-lg: 12px;  /* panel besar, modal */
 }
 
 /*
@@ -29,25 +48,25 @@
  */
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold
-           transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold
+           transition-colors focus:outline-none focus:ring-2 focus:ring-accent-600 focus:ring-offset-2
            disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   .btn-primary {
-    @apply bg-brand-600 text-white shadow-sm hover:bg-brand-700;
+    @apply bg-accent-600 text-white shadow-sm hover:bg-accent-700;
   }
 
   .btn-secondary {
-    @apply border border-slate-300 bg-white text-slate-700 shadow-sm hover:bg-slate-50;
+    @apply border border-line bg-surface text-ink-700 shadow-sm hover:bg-canvas;
   }
 
   .btn-danger {
-    @apply bg-rose-600 text-white shadow-sm hover:bg-rose-700;
+    @apply bg-danger text-white shadow-sm hover:bg-danger/90;
   }
 
   .btn-ghost {
-    @apply text-slate-600 hover:bg-slate-100 hover:text-slate-900;
+    @apply text-ink-700 hover:bg-line hover:text-ink-900;
   }
 
   .btn-sm {
@@ -55,29 +74,29 @@
   }
 
   .label {
-    @apply mb-1.5 block text-sm font-medium text-slate-700;
+    @apply mb-1.5 block text-sm font-medium text-ink-700;
   }
 
   .input {
-    @apply block w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900
-           placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2
-           focus:ring-brand-500/25;
+    @apply block w-full rounded-md border border-line bg-surface px-3.5 py-2.5 text-sm text-ink-900
+           placeholder:text-ink-500 focus:border-accent-600 focus:outline-none focus:ring-2
+           focus:ring-accent-600/25;
   }
 
   .input-error {
-    @apply border-rose-400 focus:border-rose-500 focus:ring-rose-500/25;
+    @apply border-danger focus:border-danger focus:ring-danger/25;
   }
 
   .field-error {
-    @apply mt-1.5 text-xs font-medium text-rose-600;
+    @apply mt-1.5 text-xs font-medium text-danger;
   }
 
   .card {
-    @apply rounded-2xl border border-slate-200/80 bg-white shadow-sm;
+    @apply rounded-md border border-line bg-surface shadow-sm;
   }
 
   .card-header {
-    @apply border-b border-slate-100 px-6 py-4;
+    @apply border-b border-line px-6 py-4;
   }
 
   .card-body {
@@ -89,7 +108,7 @@
   }
 
   .table-base thead {
-    @apply border-b border-slate-200 bg-slate-50/80 text-left text-xs font-semibold uppercase tracking-wide text-slate-500;
+    @apply border-b border-line bg-canvas text-left text-xs font-semibold uppercase tracking-wide text-ink-500;
   }
 
   .table-base th {
@@ -97,15 +116,15 @@
   }
 
   .table-base td {
-    @apply px-4 py-3 text-slate-700;
+    @apply px-4 py-3 text-ink-700;
   }
 
   .table-base tbody {
-    @apply divide-y divide-slate-100;
+    @apply divide-y divide-line;
   }
 
   .table-base tbody tr {
-    @apply transition-colors hover:bg-slate-50/70;
+    @apply transition-colors hover:bg-canvas/70;
   }
 
   .badge {
@@ -128,36 +147,36 @@
     @apply bg-slate-100 text-slate-600 ring-1 ring-inset ring-slate-500/10;
   }
 
-  .badge-brand {
-    @apply bg-brand-50 text-brand-700 ring-1 ring-inset ring-brand-600/20;
+  .badge-accent {
+    @apply bg-accent-50 text-accent-700 ring-1 ring-inset ring-accent-600/20;
   }
 
   .nav-link {
-    @apply flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-300
+    @apply flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-slate-300
            transition-colors hover:bg-sidebar-hover hover:text-white;
   }
 
   .nav-link-active {
-    @apply bg-brand-600/15 text-white ring-1 ring-inset ring-brand-500/30;
+    @apply bg-accent-600/15 text-white ring-1 ring-inset ring-accent-600/30;
   }
 
   .page-title {
-    @apply text-2xl font-bold tracking-tight text-slate-900;
+    @apply text-2xl font-bold tracking-tight text-ink-900;
   }
 
   .page-subtitle {
-    @apply mt-1 text-sm text-slate-500;
+    @apply mt-1 text-sm text-ink-500;
   }
 
   .alert-success {
-    @apply flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800;
+    @apply flex items-start gap-3 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800;
   }
 
   .alert-error {
-    @apply flex items-start gap-3 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800;
+    @apply flex items-start gap-3 rounded-md border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800;
   }
 
   .empty-state {
-    @apply px-4 py-16 text-center text-sm text-slate-400;
+    @apply px-4 py-16 text-center text-sm text-ink-500;
   }
 }

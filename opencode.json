@@ -2,7 +2,8 @@
   "$schema": "https://opencode.ai/config.json",
   "instructions": [
     "AGENTS.md",
-    "docs/pos-inventaris-plan.md"
+    "docs/pos-inventaris-plan.md",
+    "docs/DESIGN.md"
   ],
   "agent": {
     "build": {

@@ -37,7 +37,7 @@ class UpdateProductRequest extends FormRequest
             'unit' => ['required', 'string', 'max:20'],
             'cost_price' => ['required', 'numeric', 'min:0'],
             'sell_price' => ['required', 'numeric', 'min:0'],
-            'stock' => ['required', 'integer', 'min:0'],
+            // 'stock' sengaja TIDAK diterima di update — hanya lewat StockService.
             'min_stock' => ['required', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
         ];

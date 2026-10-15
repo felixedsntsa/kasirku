@@ -6,7 +6,158 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
-/* Token desain opsional */
+/* Token desain — font di-fetch plugin bunny di vite.config.js */
 @theme {
-  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "SF Mono", Menlo, monospace;
+
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-900: #312e81;
+
+  --color-surface: #f6f7fb;
+  --color-sidebar: #111827;
+  --color-sidebar-hover: #1f2937;
+}
+
+/*
+ * Komponen reusable — definisi sekali dipakai di semua Blade.
+ * Konsistensi tombol/input/table tanpa mengulang class panjang.
+ */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold
+           transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2
+           disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply bg-brand-600 text-white shadow-sm hover:bg-brand-700;
+  }
+
+  .btn-secondary {
+    @apply border border-slate-300 bg-white text-slate-700 shadow-sm hover:bg-slate-50;
+  }
+
+  .btn-danger {
+    @apply bg-rose-600 text-white shadow-sm hover:bg-rose-700;
+  }
+
+  .btn-ghost {
+    @apply text-slate-600 hover:bg-slate-100 hover:text-slate-900;
+  }
+
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-slate-700;
+  }
+
+  .input {
+    @apply block w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900
+           placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2
+           focus:ring-brand-500/25;
+  }
+
+  .input-error {
+    @apply border-rose-400 focus:border-rose-500 focus:ring-rose-500/25;
+  }
+
+  .field-error {
+    @apply mt-1.5 text-xs font-medium text-rose-600;
+  }
+
+  .card {
+    @apply rounded-2xl border border-slate-200/80 bg-white shadow-sm;
+  }
+
+  .card-header {
+    @apply border-b border-slate-100 px-6 py-4;
+  }
+
+  .card-body {
+    @apply p-6;
+  }
+
+  .table-base {
+    @apply w-full text-sm;
+  }
+
+  .table-base thead {
+    @apply border-b border-slate-200 bg-slate-50/80 text-left text-xs font-semibold uppercase tracking-wide text-slate-500;
+  }
+
+  .table-base th {
+    @apply px-4 py-3;
+  }
+
+  .table-base td {
+    @apply px-4 py-3 text-slate-700;
+  }
+
+  .table-base tbody {
+    @apply divide-y divide-slate-100;
+  }
+
+  .table-base tbody tr {
+    @apply transition-colors hover:bg-slate-50/70;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold;
+  }
+
+  .badge-green {
+    @apply bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20;
+  }
+
+  .badge-red {
+    @apply bg-rose-50 text-rose-700 ring-1 ring-inset ring-rose-600/20;
+  }
+
+  .badge-amber {
+    @apply bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-600/20;
+  }
+
+  .badge-slate {
+    @apply bg-slate-100 text-slate-600 ring-1 ring-inset ring-slate-500/10;
+  }
+
+  .badge-brand {
+    @apply bg-brand-50 text-brand-700 ring-1 ring-inset ring-brand-600/20;
+  }
+
+  .nav-link {
+    @apply flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-300
+           transition-colors hover:bg-sidebar-hover hover:text-white;
+  }
+
+  .nav-link-active {
+    @apply bg-brand-600/15 text-white ring-1 ring-inset ring-brand-500/30;
+  }
+
+  .page-title {
+    @apply text-2xl font-bold tracking-tight text-slate-900;
+  }
+
+  .page-subtitle {
+    @apply mt-1 text-sm text-slate-500;
+  }
+
+  .alert-success {
+    @apply flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800;
+  }
+
+  .alert-error {
+    @apply flex items-start gap-3 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800;
+  }
+
+  .empty-state {
+    @apply px-4 py-16 text-center text-sm text-slate-400;
+  }
 }

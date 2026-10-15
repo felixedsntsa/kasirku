@@ -1,98 +1,112 @@
 @extends('layouts.admin')
 
 @section('title', 'Tambah Produk — KasirKu')
+@section('heading', 'Tambah Produk')
 
 @section('content')
-    <h1 class="text-xl font-semibold mb-6">Tambah Produk</h1>
+    <div class="card max-w-3xl">
+        <div class="card-body">
+            <form method="POST" action="{{ route('admin.produk.store') }}" class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                @csrf
 
-    <div class="max-w-2xl rounded-xl bg-white shadow p-6">
-        <form method="POST" action="{{ route('admin.produk.store') }}" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            @csrf
+                <div>
+                    <label for="name" class="label">Nama</label>
+                    <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus
+                           placeholder="mis. Kopi Susu Instan" class="input @error('name') input-error @enderror" />
+                    @error('name') <p class="field-error">{{ $message }}</p> @enderror
+                </div>
 
-            <div>
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nama</label>
-                <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus
-                       class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            </div>
+                <div>
+                    <label for="sku" class="label">SKU</label>
+                    <input id="sku" type="text" name="sku" value="{{ old('sku') }}" required
+                           placeholder="mis. KOP-001" class="input font-mono @error('sku') input-error @enderror" />
+                    @error('sku') <p class="field-error">{{ $message }}</p> @enderror
+                </div>
 
-            <div>
-                <label for="sku" class="block text-sm font-medium text-gray-700 mb-1">SKU</label>
-                <input id="sku" type="text" name="sku" value="{{ old('sku') }}" required
-                       class="w-full rounded-lg border border-gray-300 px-3 py-2 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            </div>
+                <div>
+                    <label for="category_id" class="label">Kategori</label>
+                    <select id="category_id" name="category_id" required
+                            class="input @error('category_id') input-error @enderror">
+                        <option value="">— Pilih kategori —</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('category_id') <p class="field-error">{{ $message }}</p> @enderror
+                </div>
 
-            <div>
-                <label for="category_id" class="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
-                <select id="category_id" name="category_id" required
-                        class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    <option value="">— Pilih kategori —</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>{{ $category->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+                <div>
+                    <label for="supplier_id" class="label">Supplier <span class="font-normal text-slate-400">(opsional)</span></label>
+                    <select id="supplier_id" name="supplier_id"
+                            class="input @error('supplier_id') input-error @enderror">
+                        <option value="">— Tanpa supplier —</option>
+                        @foreach ($suppliers as $supplier)
+                            <option value="{{ $supplier->id }}" @selected(old('supplier_id') == $supplier->id)>{{ $supplier->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('supplier_id') <p class="field-error">{{ $message }}</p> @enderror
+                </div>
 
-            <div>
-                <label for="supplier_id" class="block text-sm font-medium text-gray-700 mb-1">Supplier (opsional)</label>
-                <select id="supplier_id" name="supplier_id"
-                        class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    <option value="">— Tanpa supplier —</option>
-                    @foreach ($suppliers as $supplier)
-                        <option value="{{ $supplier->id }}" @selected(old('supplier_id') == $supplier->id)>{{ $supplier->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+                <div>
+                    <label for="barcode" class="label">Barcode <span class="font-normal text-slate-400">(opsional)</span></label>
+                    <input id="barcode" type="text" name="barcode" value="{{ old('barcode') }}"
+                           class="input font-mono @error('barcode') input-error @enderror" />
+                    @error('barcode') <p class="field-error">{{ $message }}</p> @enderror
+                </div>
 
-            <div>
-                <label for="barcode" class="block text-sm font-medium text-gray-700 mb-1">Barcode (opsional)</label>
-                <input id="barcode" type="text" name="barcode" value="{{ old('barcode') }}"
-                       class="w-full rounded-lg border border-gray-300 px-3 py-2 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            </div>
+                <div>
+                    <label for="unit" class="label">Satuan</label>
+                    <input id="unit" type="text" name="unit" value="{{ old('unit', 'pcs') }}" required
+                           placeholder="pcs / kg / box" class="input @error('unit') input-error @enderror" />
+                    @error('unit') <p class="field-error">{{ $message }}</p> @enderror
+                </div>
 
-            <div>
-                <label for="unit" class="block text-sm font-medium text-gray-700 mb-1">Satuan</label>
-                <input id="unit" type="text" name="unit" value="{{ old('unit', 'pcs') }}" required
-                       class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            </div>
+                <div>
+                    <label for="cost_price" class="label">Harga Beli (Rp)</label>
+                    <input id="cost_price" type="number" name="cost_price" value="{{ old('cost_price', 0) }}" min="0" step="1" required
+                           class="input @error('cost_price') input-error @enderror" />
+                    @error('cost_price') <p class="field-error">{{ $message }}</p> @enderror
+                </div>
 
-            <div>
-                <label for="cost_price" class="block text-sm font-medium text-gray-700 mb-1">Harga Beli (Rp)</label>
-                <input id="cost_price" type="number" name="cost_price" value="{{ old('cost_price', 0) }}" min="0" step="0.01" required
-                       class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            </div>
+                <div>
+                    <label for="sell_price" class="label">Harga Jual (Rp)</label>
+                    <input id="sell_price" type="number" name="sell_price" value="{{ old('sell_price', 0) }}" min="0" step="1" required
+                           class="input @error('sell_price') input-error @enderror" />
+                    @error('sell_price') <p class="field-error">{{ $message }}</p> @enderror
+                </div>
 
-            <div>
-                <label for="sell_price" class="block text-sm font-medium text-gray-700 mb-1">Harga Jual (Rp)</label>
-                <input id="sell_price" type="number" name="sell_price" value="{{ old('sell_price', 0) }}" min="0" step="0.01" required
-                       class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            </div>
+                <div>
+                    <label for="stock" class="label">Stok Awal</label>
+                    <input id="stock" type="number" name="stock" value="{{ old('stock', 0) }}" min="0" step="1" required
+                           class="input @error('stock') input-error @enderror" />
+                    <p class="mt-1.5 text-xs text-slate-400">Tercatat otomatis sebagai stok masuk pertama.</p>
+                    @error('stock') <p class="field-error">{{ $message }}</p> @enderror
+                </div>
 
-            <div>
-                <label for="stock" class="block text-sm font-medium text-gray-700 mb-1">Stok Awal</label>
-                <input id="stock" type="number" name="stock" value="{{ old('stock', 0) }}" min="0" step="1" required
-                       class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            </div>
+                <div>
+                    <label for="min_stock" class="label">Stok Minimum</label>
+                    <input id="min_stock" type="number" name="min_stock" value="{{ old('min_stock', 0) }}" min="0" step="1" required
+                           class="input @error('min_stock') input-error @enderror" />
+                    <p class="mt-1.5 text-xs text-slate-400">Peringatan muncul saat stok di bawah angka ini.</p>
+                    @error('min_stock') <p class="field-error">{{ $message }}</p> @enderror
+                </div>
 
-            <div>
-                <label for="min_stock" class="block text-sm font-medium text-gray-700 mb-1">Stok Minimum</label>
-                <input id="min_stock" type="number" name="min_stock" value="{{ old('min_stock', 0) }}" min="0" step="1" required
-                       class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-            </div>
+                <div class="sm:col-span-2">
+                    <label class="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/60 px-4 py-3">
+                        <input type="checkbox" name="is_active" value="1" @checked(old('is_active', true))
+                               class="size-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500" />
+                        <span>
+                            <span class="block text-sm font-medium text-slate-900">Aktif (bisa dijual)</span>
+                            <span class="block text-xs text-slate-500">Produk nonaktif disembunyikan dari halaman kasir.</span>
+                        </span>
+                    </label>
+                </div>
 
-            <div class="sm:col-span-2">
-                <label class="flex items-center gap-2 text-sm text-gray-700">
-                    <input type="checkbox" name="is_active" value="1" @checked(old('is_active', true)) class="rounded border-gray-300">
-                    Aktif (bisa dijual)
-                </label>
-            </div>
-
-            <div class="sm:col-span-2 flex items-center gap-3">
-                <button type="submit"
-                        class="rounded-lg bg-indigo-600 hover:bg-indigo-700 px-4 py-2 text-sm font-medium text-white">
-                    Simpan
-                </button>
-                <a href="{{ route('admin.produk.index') }}" class="text-sm text-gray-500 hover:text-gray-700">Batal</a>
-            </div>
-        </form>
+                <div class="sm:col-span-2 flex items-center gap-3 pt-2">
+                    <button type="submit" class="btn btn-primary">Simpan Produk</button>
+                    <a href="{{ route('admin.produk.index') }}" class="btn btn-ghost">Batal</a>
+                </div>
+            </form>
+        </div>
     </div>
 @endsection

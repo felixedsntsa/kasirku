@@ -8,7 +8,7 @@ Dikembangkan di Laragon (Windows): app di `http://kasirku.test`, MySQL database 
 - `docs/DESIGN.md` — **panduan desain UI (WAJIB dibaca sebelum menyentuh Blade/CSS apa pun).**
 - `PROMPTS.md` — urutan tugas per milestone (M1–M4), jalankan satu per satu
 
-**Status (Okt 2026):** M1–M4 selesai — auth hand-roll, master data, stok, POS + struk, laporan + dashboard, policy + 49 test hijau. Tanpa landing page (`/` redirect ke login); ada modul **Kelola Kasir** (CRUD + detail), **Profil** (semua role), **Void transaksi** (stok kembali otomatis), **Export/Import CSV produk**, favicon & logo SVG mark "KK".
+**Status (Okt 2026):** M1–M4 selesai — auth hand-roll, master data, stok, POS + struk, laporan + dashboard, Gate/Policy (`ProductPolicy`, `SalePolicy`) + 53 test hijau. Tanpa landing page (`/` redirect ke login); ada modul **Kelola Kasir** (CRUD + detail), **Profil** (semua role), **Void transaksi** (stok kembali otomatis), **Export/Import CSV produk**, favicon & logo SVG mark "KK". README portofolio sudah ditulis.
 
 ## Prinsip wajib (JANGAN dilanggar)
 
